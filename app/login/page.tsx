@@ -1,17 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
-import { useAuth } from "@/components/auth-provider"
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
+import { useAuth } from "@/components/auth-provider";
 
 const loginSchema = z.object({
   email: z.string().email({
@@ -20,14 +34,14 @@ const loginSchema = z.object({
   password: z.string().min(1, {
     message: "Please enter your password.",
   }),
-})
+});
 
-type LoginFormValues = z.infer<typeof loginSchema>
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
-  const { login } = useAuth()
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
+  const { login } = useAuth();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -35,35 +49,40 @@ export default function LoginPage() {
       email: "",
       password: "",
     },
-  })
+  });
 
   async function onSubmit(data: LoginFormValues) {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      await login(data.email, data.password)
+      await login(data.email, data.password);
       toast({
         title: "Login successful",
         description: "Welcome back!",
-      })
-      router.push("/")
+      });
+      router.push("/");
     } catch (error) {
       toast({
         title: "Login failed",
-        description: error instanceof Error ? error.message : "Please check your credentials and try again.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Please check your credentials and try again.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   return (
-    <div className="container flex items-center justify-center min-h-screen py-12">
+    <div className="mx-auto container  flex items-center justify-center min-h-screen py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Log in</CardTitle>
-          <CardDescription>Enter your email and password to access your account</CardDescription>
+          <CardDescription>
+            Enter your email and password to access your account
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -88,7 +107,11 @@ export default function LoginPage() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="••••••••"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -110,6 +133,5 @@ export default function LoginPage() {
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }
-
