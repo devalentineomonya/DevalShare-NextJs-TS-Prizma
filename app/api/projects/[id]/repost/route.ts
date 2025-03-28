@@ -49,7 +49,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Error reposting project:", error)
+    console.log ("Error reposting project:", error)
     return NextResponse.json({ error: "Failed to repost project" }, { status: 500 })
   }
 }
@@ -75,8 +75,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Error removing repost:", error)
+    console.log ("Error removing repost:", error)
     return NextResponse.json({ error: "Failed to remove repost" }, { status: 500 })
   }
 }
-
