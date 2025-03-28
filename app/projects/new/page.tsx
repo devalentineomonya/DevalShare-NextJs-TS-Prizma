@@ -155,14 +155,14 @@ export default function NewProjectPage() {
 
   if (status === "loading") {
     return (
-      <div className="container flex items-center justify-center min-h-screen">
+      <div className="mx-auto container  flex items-center justify-center min-h-screen">
         <p>Loading...</p>
       </div>
     )
   }
 
   return (
-    <div className="container max-w-2xl py-12">
+    <div className="mx-auto container  max-w-2xl py-12">
       <Card>
         <CardHeader>
           <CardTitle>Create a New Project</CardTitle>
@@ -271,4 +271,3 @@ export default function NewProjectPage() {
     </div>
   )
 }
-
