@@ -1,7 +1,7 @@
 // This is a placeholder file for data fetching functions
 // In a real application, these would interact with your database
 
-import type { Project, Comment } from "@/lib/types"
+import type { Project, Comment } from "@/lib/types";
 
 // Mock data for development
 const mockProjects: Project[] = [
@@ -49,7 +49,51 @@ const mockProjects: Project[] = [
     isLikedByUser: false,
     isRepostedByUser: false,
   },
-]
+  {
+    id: "3",
+    title: "React Component Library",
+    description:
+      "A comprehensive library of reusable React components with Tailwind CSS styling. Includes form elements, navigation, modals, and more.",
+    image: "/placeholder.svg?height=400&width=600",
+    url: "https://github.com/example/react-components",
+    published: true,
+    createdAt: new Date("2023-06-22"),
+    updatedAt: new Date("2023-06-22"),
+    author: {
+      id: "user2",
+      name: "Sarah Miller",
+      image: null,
+    },
+    likeCount: 78,
+    repostCount: 23,
+    commentCount: 15,
+    viewCount: 342,
+    isLikedByUser: false,
+    isRepostedByUser: false,
+  },
+  {
+    id: "4",
+    title: "React Component Library",
+    description:
+      "A comprehensive library of reusable React components with Tailwind CSS styling. Includes form elements, navigation, modals, and more.",
+    image: "/placeholder.svg?height=400&width=600",
+    url: "https://github.com/example/react-components",
+    published: true,
+    createdAt: new Date("2023-06-22"),
+    updatedAt: new Date("2023-06-22"),
+    author: {
+      id: "user2",
+      name: "Sarah Miller",
+      image: null,
+    },
+    likeCount: 78,
+    repostCount: 23,
+    commentCount: 15,
+    viewCount: 342,
+    isLikedByUser: false,
+    isRepostedByUser: false,
+  },
+];
 
 const mockComments: Record<string, Comment[]> = {
   "1": [
@@ -74,26 +118,31 @@ const mockComments: Record<string, Comment[]> = {
       },
     },
   ],
-}
+};
 
 // Data fetching functions
 export async function getProjects(): Promise<Project[]> {
   // In a real app, this would fetch from your database
-  return mockProjects
+  return mockProjects;
 }
 
 export async function getProjectById(id: string): Promise<Project | null> {
   // In a real app, this would fetch from your database
-  return mockProjects.find((project) => project.id === id) || null
+  return mockProjects.find((project) => project.id === id) || null;
 }
 
-export async function getCommentsByProjectId(projectId: string): Promise<Comment[]> {
+export async function getCommentsByProjectId(
+  projectId: string
+): Promise<Comment[]> {
   // In a real app, this would fetch from your database
-  return mockComments[projectId] || []
+  return mockComments[projectId] || [];
 }
 
-export async function getSimilarProjects(currentProjectId: string): Promise<Project[]> {
+export async function getSimilarProjects(
+  currentProjectId: string
+): Promise<Project[]> {
   // In a real app, this would fetch similar projects based on tags, categories, etc.
-  return mockProjects.filter((project) => project.id !== currentProjectId).slice(0, 3)
+  return mockProjects
+    .filter((project) => project.id !== currentProjectId)
+    .slice(0, 3);
 }
-
