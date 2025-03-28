@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(message, { status: 201 })
   } catch (error) {
-    console.error("Error creating message:", error)
+    console.log ("Error creating message:", error)
     return NextResponse.json({ error: "Failed to create message" }, { status: 500 })
   }
 }
@@ -130,10 +130,10 @@ export async function GET(req: NextRequest) {
     } else {
       // Get all conversations
       const conversations = await prisma.$queryRaw`
-        SELECT 
-          CASE 
-            WHEN m."senderId" = ${session.user.id} THEN m."recipientId" 
-            ELSE m."senderId" 
+        SELECT
+          CASE
+            WHEN m."senderId" = ${session.user.id} THEN m."recipientId"
+            ELSE m."senderId"
           END as "userId",
           u.name as "userName",
           u.image as "userImage",
@@ -141,7 +141,7 @@ export async function GET(req: NextRequest) {
           COUNT(CASE WHEN m."read" = false AND m."recipientId" = ${session.user.id} THEN 1 END) as "unreadCount"
         FROM "Message" m
         JOIN "User" u ON (
-          CASE 
+          CASE
             WHEN m."senderId" = ${session.user.id} THEN m."recipientId" = u.id
             ELSE m."senderId" = u.id
           END
@@ -154,8 +154,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(conversations)
     }
   } catch (error) {
-    console.error("Error fetching messages:", error)
+    console.log "Error fetching messages:", error)
     return NextResponse.json({ error: "Failed to fetch messages" }, { status: 500 })
   }
 }
-
