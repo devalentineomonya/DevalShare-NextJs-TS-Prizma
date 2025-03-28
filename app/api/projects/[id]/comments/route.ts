@@ -59,7 +59,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     return NextResponse.json(comment, { status: 201 })
   } catch (error) {
-    console.error("Error creating comment:", error)
+    console.log ("Error creating comment:", error)
     return NextResponse.json({ error: "Failed to create comment" }, { status: 500 })
   }
 }
@@ -84,8 +84,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
     return NextResponse.json(comments)
   } catch (error) {
-    console.error("Error fetching comments:", error)
+    console.log "Error fetching comments:", error)
     return NextResponse.json({ error: "Failed to fetch comments" }, { status: 500 })
   }
 }
-
