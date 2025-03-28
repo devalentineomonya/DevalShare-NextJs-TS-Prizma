@@ -27,7 +27,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <div className="container py-8 max-w-4xl">
+    <div className="mx-auto container  py-8 max-w-4xl">
       <div className="grid gap-8 md:grid-cols-3">
         <div className="md:col-span-2 space-y-6">
           <div className="relative aspect-video overflow-hidden rounded-lg">
@@ -186,4 +186,3 @@ async function SimilarProjects({ currentProjectId }: { currentProjectId: string 
     </div>
   )
 }
-
