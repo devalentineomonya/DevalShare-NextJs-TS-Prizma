@@ -73,7 +73,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
       isRepostedByUser,
     })
   } catch (error) {
-    console.error("Error fetching project:", error)
+    console.log "Error fetching project:", error)
     return NextResponse.json({ error: "Failed to fetch project" }, { status: 500 })
   }
 }
@@ -126,7 +126,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         try {
           await del(existingProject.image)
         } catch (error) {
-          console.error("Error deleting old image:", error)
+          console.log ("Error deleting old image:", error)
         }
       }
     }
@@ -148,7 +148,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     return NextResponse.json(updatedProject)
   } catch (error) {
-    console.error("Error updating project:", error)
+    console.log ("Error updating project:", error)
     return NextResponse.json({ error: "Failed to update project" }, { status: 500 })
   }
 }
@@ -180,7 +180,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
       try {
         await del(existingProject.image)
       } catch (error) {
-        console.error("Error deleting project image:", error)
+        console.log ("Error deleting project image:", error)
       }
     }
 
@@ -194,8 +194,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Error deleting project:", error)
+    console.log ("Error deleting project:", error)
     return NextResponse.json({ error: "Failed to delete project" }, { status: 500 })
   }
 }
-
