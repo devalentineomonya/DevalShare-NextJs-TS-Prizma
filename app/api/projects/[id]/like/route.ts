@@ -49,7 +49,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Error liking project:", error)
+    console.log ("Error liking project:", error)
     return NextResponse.json({ error: "Failed to like project" }, { status: 500 })
   }
 }
@@ -75,8 +75,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Error unliking project:", error)
+    console.log ("Error unliking project:", error)
     return NextResponse.json({ error: "Failed to unlike project" }, { status: 500 })
   }
 }
-
