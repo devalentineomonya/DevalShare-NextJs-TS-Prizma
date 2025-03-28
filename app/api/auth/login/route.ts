@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ message: "Login successful", session })
   } catch (error) {
-    console.error("Login error:", error)
+    console.log Login error:", error)
 
     if (error instanceof Error) {
       return NextResponse.json({ message: error.message }, { status: 400 })
@@ -26,4 +26,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "An unexpected error occurred" }, { status: 500 })
   }
 }
-
