@@ -7,9 +7,8 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ session })
   } catch (error) {
-    console.error("Session error:", error)
+    console.log ("Session error:", error)
 
     return NextResponse.json({ message: "An unexpected error occurred" }, { status: 500 })
   }
 }
-
