@@ -13,7 +13,7 @@ export default async function MessagesPage() {
   }
 
   return (
-    <div className="container py-8 max-w-4xl">
+    <div className="mx-auto container  py-8 max-w-4xl">
       <h1 className="text-3xl font-bold mb-6">Messages</h1>
 
       <Suspense fallback={<ConversationListSkeleton />}>
@@ -38,4 +38,3 @@ function ConversationListSkeleton() {
     </div>
   )
 }
-
