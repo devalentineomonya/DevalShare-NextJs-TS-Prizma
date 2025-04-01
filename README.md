@@ -1,108 +1,141 @@
 # DevalShare - Developer Collaboration Platform
 
-![Developer Community](https://img.shields.io/badge/Platform-Developer%20Community-blue) ![Next.js](https://img.shields.io/badge/Next.js-14.2.x-000000?logo=next.js) ![Prisma](https://img.shields.io/badge/ORM-Prisma-%232B2D42) ![Real-Time Chat](https://img.shields.io/badge/Chat-Socket.io-green)
+![Next.js](https://img.shields.io/badge/Next.js-14.2.3-000000?logo=next.js)
+![NestJS](https://img.shields.io/badge/NestJS-15.8.0-E0234E?logo=nestjs)
+![Prisma](https://img.shields.io/badge/Prisma-5.12.1-2D3748?logo=prisma)
+![Neon](https://img.shields.io/badge/Neon-PostgreSQL-00E59B?logo=postgresql)
+![pnpm](https://img.shields.io/badge/pnpm-8.15.6-F69220?logo=pnpm)
 
-A full-stack developer community platform where users can share projects, collaborate, and connect. Built with modern web technologies to foster developer networking and knowledge sharing.
+A full-stack platform for developers to **share projects**, **collaborate**, and **connect**. Built with modern web technologies and featuring real-time interactions.
 
-![Platform Screenshot](/public/images/screenshot.png) <!-- Update with actual path -->
+![DevalShare Preview](public/screenshot.png)
+## 🚀 Key Features
 
-## ✨ Core Features
-- **Project Sharing**  
-  Post tech projects with code snippets, descriptions, and tags
-- **Community Interaction**  
-  - Comment on projects
-  - Repost interesting work
-  - Upvote/downvote system
-- **Real-Time Chat**  
-  Socket.io-powered messaging between developers
-- **User Profiles**  
-  Customizable profiles with project portfolios
-- **Notifications**  
-  Get alerts for comments, reposts, and mentions
-- **Tag System**  
-  Categorize projects with tech stack tags (React, Node.js, etc.)
+- 👥 **Social Sharing**
+  - Share projects with markdown descriptions
+  - Like/Bookmark interesting projects
+  - Report inappropriate content
+  - Public/Private project visibility
 
-## 🛠 Tech Stack
-- **Frontend**: Next.js 14 (App Router) + TypeScript
-- **Styling**: Tailwind CSS + Shadcn UI
-- **Animations**: Framer Motion
-- **Backend**: Next.js API Routes
-- **Database**: PostgreSQL + Prisma ORM
-- **Auth**: NextAuth.js (GitHub & Google OAuth)
-- **Realtime**: Socket.io
-- **Deployment**: Vercel + Supabase
+- 💬 **Real-time Chat**
+  - WebSocket-based messaging
+  - Direct messages & group channels
+  - Code snippet sharing
 
-## 🚀 Quick Start
-1. Clone repo:
+- 🔐 **Secure Authentication**
+  - NextAuth with Google/GitHub/Email
+  - Session management
+  - Role-based access control
+
+- 🛠️ **Developer Tools**
+  - Project versioning
+  - Code preview embeds
+  - API documentation sharing
+
+## 💻 Tech Stack
+
+- **Frontend**: 
+  - Next.js 14 (App Router)
+  - TypeScript 5.3
+  - Tailwind CSS 4
+  - shadcn/ui
+  - NextAuth.js
+
+- **Backend**:
+  - NestJS 15
+  - Prisma 5 + PostgreSQL (Neon)
+  - WebSockets (Socket.io)
+  - Redis for caching
+
+- **Tooling**:
+  - pnpm workspace
+  - Zod validation
+  - Vitest for testing
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL (Neon recommended)
+- Redis server
+- OAuth credentials (Google/GitHub)
+
+### Installation
+
+1. **Clone repository**
    ```bash
    git clone https://github.com/devalentineomonya/DevalShare-NextJs-TS-Prizma.git
+   cd DevalShare-NextJs-TS-Prizma
    ```
-2. Install dependencies:
+
+2. **Install dependencies (using pnpm)**
    ```bash
-   npm install
+   pnpm install
    ```
-3. Setup environment variables:
+
+3. **Configure environment variables**
    ```env
-   DATABASE_URL="postgresql://..."
-   NEXTAUTH_SECRET="your-secret-key"
-   GITHUB_CLIENT_ID="..."
-   GITHUB_CLIENT_SECRET="..."
-   ```
-4. Database setup:
-   ```bash
-   npx prisma generate
-   npx prisma migrate dev
+   # .env
+   DATABASE_URL="postgresql://user:pass@neon-hostname/project"
+   REDIS_URL="redis://localhost:6379"
+   NEXTAUTH_SECRET="your-secure-key"
+   NEXTAUTH_URL=http://localhost:3000
    ```
 
-## 🔧 Configuration
-**Prisma Schema**  
-Modify `prisma/schema.prisma` for database models:
-```prisma
-model Project {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  // ... other fields
-}
+4. **Database Setup**
+   ```bash
+   pnpm prisma generate
+   pnpm prisma migrate dev
+   ```
+
+5. **Run development servers**
+   ```bash
+   pnpm dev
+
+   ```
+
+## 🌟 Social Features
+
+### Project Sharing
+1. Create projects with title/description/tags
+2. Upload code samples or link repositories
+3. Set visibility (public/private)
+4. Share via unique URL
+
+### Collaboration
+- Comment on projects
+- Fork public projects
+- Request collaboration
+- Real-time code review
+
+### Chat System
+```ts
+// Example WebSocket handler
+socket.on('message', (message: ChatMessage) => {
+  broadcastToRoom(message.roomId, 'new_message', message);
+});
 ```
 
-**Authentication**  
-Add OAuth providers in `next.config.js`:
-```javascript
-authOptions: {
-  providers: [
-    GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
-  ]
-}
+## 🚨 Reporting System
+1. Click "Report" on any content
+2. Select reason (spam/inappropriate/etc)
+3. Admins receive real-time notifications
+4. Automated content moderation
+
+## 📦 Deployment
+
+### Frontend (Vercel)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdevalentineomonya%2FDevalShare-NextJs-TS-Prizma)
+
+### Backend (Docker)
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && pnpm install
+COPY . .
+CMD ["pnpm", "start:backend"]
 ```
-
-## 🖥 Running the App
-```bash
-npm run dev
-```
-
-## 🌐 Production Deployment
-1. Build project:
-   ```bash
-   npm run build
-   ```
-2. Start production server:
-   ```bash
-   npm start
-   ```
-
-## 🤝 Contributing
-1. Create an issue describing your proposed change
-2. Fork repository and create feature branch
-3. Submit PR with detailed description of changes
 
 ## 📄 License
-MIT License - see [LICENSE](LICENSE) for details
-
-## 📬 Contact
-For feature requests or issues:  
-[Create GitHub Issue](https://github.com/devalentineomonya/DevalShare-NextJs-TS-Prizma/issues)  
-Project Link: [https://github.com/devalentineomonya/DevalShare-NextJs-TS-Prizma](https://github.com/devalentineomonya/DevalShare-NextJs-TS-Prizma)
+MIT - See [LICENSE](LICENSE) for details
