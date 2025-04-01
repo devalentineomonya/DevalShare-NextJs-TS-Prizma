@@ -1,7 +1,6 @@
 # DevalShare - Developer Collaboration Platform
 
 ![Next.js](https://img.shields.io/badge/Next.js-14.2.3-000000?logo=next.js)
-![NestJS](https://img.shields.io/badge/NestJS-15.8.0-E0234E?logo=nestjs)
 ![Prisma](https://img.shields.io/badge/Prisma-5.12.1-2D3748?logo=prisma)
 ![Neon](https://img.shields.io/badge/Neon-PostgreSQL-00E59B?logo=postgresql)
 ![pnpm](https://img.shields.io/badge/pnpm-8.15.6-F69220?logo=pnpm)
