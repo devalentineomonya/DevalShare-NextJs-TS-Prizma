@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Comment {
+  id        String   @id
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  authorId  String
+  projectId String
+  User      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  Project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  userId    String
+  projectId String
+  createdAt DateTime @default(now())
+  Project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, projectId])
+}
+
+model Message {
+  id                             String   @id
+  content                        String
+  createdAt                      DateTime @default(now())
+  read                           Boolean  @default(false)
+  senderId                       String
+  recipientId                    String
+  User_Message_recipientIdToUser User     @relation("Message_recipientIdToUser", fields: [recipientId], references: [id], onDelete: Cascade)
+  User_Message_senderIdToUser    User     @relation("Message_senderIdToUser", fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id          String    @id
+  title       String
+  description String
+  image       String?
+  url         String?
+  published   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  authorId    String
+  Comment     Comment[]
+  Like        Like[]
+  User        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  Repost      Repost[]
+}
+
+model Repost {
+  userId    String
+  projectId String
+  createdAt DateTime @default(now())
+  Project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, projectId])
+}
+
+model User {
+  id                                String    @id
+  name                              String?
+  email                             String?   @unique
+  emailVerified                     DateTime?
+  password                          String?
+  image                             String?
+  role                              String    @default("USER")
+  createdAt                         DateTime  @default(now())
+  updatedAt                         DateTime
+  Comment                           Comment[]
+  Like                              Like[]
+  Message_Message_recipientIdToUser Message[] @relation("Message_recipientIdToUser")
+  Message_Message_senderIdToUser    Message[] @relation("Message_senderIdToUser")
+  Project                           Project[]
+  Repost                            Repost[]
+}
